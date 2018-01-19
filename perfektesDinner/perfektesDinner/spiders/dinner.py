@@ -19,7 +19,7 @@ class DinnerSpider(scrapy.Spider):
         recipe_name = response.css(".article-headline::text").extract_first()
         self.get_ingredients(response)
         self.get_recipe_infos(response)
-
+        self.get_recipe_nutrition_facts(response)
 
     def get_ingredients(self,response):
         ingredients_table = response.css(".voxde-recipe-table")
@@ -46,4 +46,17 @@ class DinnerSpider(scrapy.Spider):
         price_category_td = info_table_rows[2].css("td")
         price_category = price_category_td[1].css("span::text").extract_first()
         print(difficulty, preparation_time, price_category)
+
+    def get_recipe_nutrition_facts(self, response):
+        nutrition_table = response.css(".voxde-recipe-table")[2]
+        nutrition_table_row = nutrition_table.css("tr")
+        kj_kcal_td = nutrition_table_row[0].css("td")
+        kj_kcal = kj_kcal_td[1].css("::text").extract_first()
+        protein_td = nutrition_table_row[1].css("td")
+        protein = protein_td[1].css("::text").extract_first()
+        carbonhydrates_td = nutrition_table_row[2].css("td")
+        carbonhydrates = carbonhydrates_td[1].css("::text").extract_first()
+        fat_td = nutrition_table_row[3].css("td")
+        fat = fat_td[1].css("::text").extract_first()
+        print(kj_kcal, protein, carbonhydrates, fat)
 
