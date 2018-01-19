@@ -18,8 +18,10 @@ class DinnerSpider(scrapy.Spider):
     def parse_recipe(self, response):
         recipe_name = response.css(".article-headline::text").extract_first()
         self.get_ingredients(response)
+        self.get_recipe_infos(response)
 
-    def get_ingredients(self, response):
+
+    def get_ingredients(self,response):
         ingredients_table = response.css(".voxde-recipe-table")
         for ingredient_row in ingredients_table[0].css("tr"):
             if ingredient_row.css('tr::attr(rel)'):
@@ -33,3 +35,15 @@ class DinnerSpider(scrapy.Spider):
             else:
                 meal_part = ingredient_row.css("th::text").extract_first()
                 print(meal_part)
+
+    def get_recipe_infos(self, response):
+        info_table = response.css(".voxde-recipe-table")[1]
+        info_table_rows = info_table.css("tr")
+        difficulty_td = info_table_rows[0].css("td")
+        difficulty = difficulty_td[1].css("::text").extract_first()
+        preparation_time_td = info_table_rows[1].css("td")
+        preparation_time = preparation_time_td[1].css("::text").extract_first()
+        price_category_td = info_table_rows[2].css("td")
+        price_category = price_category_td[1].css("span::text").extract_first()
+        print(difficulty, preparation_time, price_category)
+
