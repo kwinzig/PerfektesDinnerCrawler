@@ -20,6 +20,7 @@ class DinnerSpider(scrapy.Spider):
         self.get_ingredients(response)
         self.get_recipe_infos(response)
         self.get_recipe_nutrition_facts(response)
+        self.get_preparation_text(response)
 
     def get_ingredients(self,response):
         ingredients_table = response.css(".voxde-recipe-table")
@@ -59,4 +60,11 @@ class DinnerSpider(scrapy.Spider):
         fat_td = nutrition_table_row[3].css("td")
         fat = fat_td[1].css("::text").extract_first()
         print(kj_kcal, protein, carbonhydrates, fat)
+
+    def get_preparation_text(self, response):
+        rtli_large_12_divs = response.css(".rtli-large-12")
+        preparation_div = rtli_large_12_divs[9]
+        preparation_text = preparation_div.css("h4::text, p::text").extract()
+        print(preparation_text)
+
 
