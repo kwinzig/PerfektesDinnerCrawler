@@ -23,6 +23,8 @@ class DinnerSpider(scrapy.Spider):
         self.get_preparation_text(response)
 
     def get_ingredients(self,response):
+        person_quantity = response.css('input::attr(data-base-qty)').extract_first()
+        print(person_quantity)
         ingredients_table = response.css(".voxde-recipe-table")
         for ingredient_row in ingredients_table[0].css("tr"):
             if ingredient_row.css('tr::attr(rel)'):
