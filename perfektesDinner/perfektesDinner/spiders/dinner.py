@@ -13,8 +13,8 @@ class DinnerSpider(scrapy.Spider):
             yield scrapy.Request(response.urljoin(recipe_url), callback=self.parse_recipe)
         next_url_div = response.css('.voxde-pagination-list .rtli-btn-link')
         next_url = next_url_div[2].css('a::attr(href)').extract()
-        #if len(next_url) > 0:
-        #    yield scrapy.Request(response.urljoin(next_url[0]), callback=self.parse)
+        if len(next_url) > 0:
+            yield scrapy.Request(response.urljoin(next_url[0]), callback=self.parse)
 
     def parse_recipe(self, response):
         recipe_id = response.url.split('/')[6]
