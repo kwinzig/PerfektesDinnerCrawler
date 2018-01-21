@@ -16,6 +16,7 @@ class DinnerSpider(scrapy.Spider):
         #    yield scrapy.Request(response.urljoin(next_url[0]), callback=self.parse)
 
     def parse_recipe(self, response):
+        recipe_id = response.url.split('/')[6]
         recipe_name = response.css(".article-headline::text").extract_first()
         self.get_ingredients(response)
         self.get_recipe_infos(response)
@@ -57,11 +58,11 @@ class DinnerSpider(scrapy.Spider):
         kj_kcal = kj_kcal_td[1].css("::text").extract_first()
         protein_td = nutrition_table_row[1].css("td")
         protein = protein_td[1].css("::text").extract_first()
-        carbonhydrates_td = nutrition_table_row[2].css("td")
-        carbonhydrates = carbonhydrates_td[1].css("::text").extract_first()
+        carbohydrates_td = nutrition_table_row[2].css("td")
+        carbohydrates = carbohydrates_td[1].css("::text").extract_first()
         fat_td = nutrition_table_row[3].css("td")
         fat = fat_td[1].css("::text").extract_first()
-        print(kj_kcal, protein, carbonhydrates, fat)
+        print(kj_kcal, protein, carbohydrates, fat)
 
     def get_preparation_text(self, response):
         rtli_large_12_divs = response.css(".rtli-large-12")
