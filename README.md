@@ -1,2 +1,2 @@
 # PerfektesDinnerCrawler
-The purpose of this project is to crawl recipes of the German cooking TV-Show "Das Perfekte Dinner". The extracted data is saved in JSON format.
+A web crawler written with the open source framework [Scrapy]("https://scrapy.org/"). The crawler collects recipes published by the German Cooking TV-Show "Das Perfekte Dinner" and saves the extracted recipes in JSON format.
