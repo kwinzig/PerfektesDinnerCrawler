@@ -6,14 +6,12 @@ Python3 and Scrapy are required to run this project.
 To install Scrapy use:
 ```
 pip install scrapy
-
 ```
-Clone the repository and run:
+Clone the repository and go to the projects root folder. Then run:
 ```
 cd perfektesDinner/
 
 python runspider.py
-
 ```
 
 
